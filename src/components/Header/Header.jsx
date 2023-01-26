@@ -8,16 +8,18 @@ const Header = () => {
   return (
     <s.Container>
       <s.Header>
-        <s.Ul>
-          <s.Li>
-            <s.Link exact to="/" end>
-              Home
-            </s.Link>
-          </s.Li>
-          <s.Li>
-            <s.Link to="/movies">Movies</s.Link>
-          </s.Li>
-        </s.Ul>
+        <s.Nav>
+          <s.Ul>
+            <s.Li>
+              <s.Link to="/" end>
+                Home
+              </s.Link>
+            </s.Li>
+            <s.Li>
+              <s.Link to="/movies">Movies</s.Link>
+            </s.Li>
+          </s.Ul>
+        </s.Nav>
       </s.Header>
       <Suspense fallback={<Loader />}>
         <Outlet />

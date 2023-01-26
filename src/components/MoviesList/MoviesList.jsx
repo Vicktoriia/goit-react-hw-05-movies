@@ -20,7 +20,7 @@ const MoviesList = ({ movies }) => {
               width="200"
               height="240"
             />
-            <h4>{title}</h4>
+            <s.Title>{title}</s.Title>
           </s.Link>
         </s.Li>
       ))}

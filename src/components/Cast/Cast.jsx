@@ -1,4 +1,4 @@
-import { GetMovieCast } from '../Fetch';
+import { GetMovieCast } from '../Fetch/FetchApi';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as s  from './Cast.styled';
@@ -31,10 +31,10 @@ const Cast = () => {
                 width="200"
                 height="240"
               />
-              <s.Desr>
+              <s.Descr>
                 <s.P>{name}</s.P>
                 <s.Character>Character: {character}</s.Character>
-              </s.Desr>
+              </s.Descr>
             </s.Li>
           ))}
         </s.Ul>

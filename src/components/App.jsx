@@ -2,21 +2,29 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy } from 'react';
 
 import Header from './Header/Header';
-import * as s from './App.styled';
 
-const Home = lazy(() => import('../Page/HomePage/Home'));
+const Home = lazy(() => import('../Page/HomePage//Home'));
+const Movies = lazy(() => import('../Page/Movies/Movies'));
+const MovieDetails = lazy(() => import('../Page/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('../components/Cast/Cast'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
-
-export const App = () => {
+const App = () => {
   return (
-    <s.Div>
+    <div>
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route exact path="/" element={<Header />}>
           <Route index element={<Home />} />
-
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
           <Route path="*" element={<Home />} />
         </Route>
       </Routes>
-    </s.Div>
+    </div>
   );
 };
+
+export default App;

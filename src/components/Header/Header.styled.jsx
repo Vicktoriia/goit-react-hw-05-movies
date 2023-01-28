@@ -20,7 +20,7 @@ export const Container = styled.div`
   margin right: auto;
   margin left: auto;
   margin bottom: 20px;
-  max-width: 1280px;
+  max-width: 100%;
 
 `;
 

@@ -1,35 +1,54 @@
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import Loader from 'components/Loader/Loader';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import * as s from './MovieSearch.styled'
+import * as s from './MovieSearch.styled';
+import { GetSearchMovies } from 'components/Fetch/FetchApi';
 
-const MovieSearch = ({ query, onSubmit }) => {
-  const [queryValue, setQueryValue] = useState(query);
-
-  useEffect(() => {
-    if (query === '') {
-      setQueryValue(query);
-    }
-  }, [query]);
+const MovieSearch = ({ setMovies }) => {
+  const [searchQuery, setSearchQuery] = useSearchParams();
+  const movieQuery = searchQuery.get('query') ?? '';
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(e.currentTarget.query.value);
+    const form = e.currentTarget;
+    const query = form.query.value;
+
+    setSearchQuery({ query });
+    form.reset();
   };
 
-  const handleQueryChange = e => setQueryValue(e.target.value);
+  useEffect(() => {
+    if (!movieQuery) return;
+
+    async function fetchMovies() {
+      const movies = await GetSearchMovies(movieQuery);
+
+      const requiredMovies = movies.map(
+        ({ id, title, poster_path, vote_average }) => ({
+          id,
+          title,
+          poster_path,
+          vote_average,
+        })
+      );
+
+      setMovies(requiredMovies);
+    }
+
+    fetchMovies();
+  }, [movieQuery, setMovies]);
 
   return (
     <s.Div>
       <s.Form onSubmit={handleSubmit}>
         <s.Input
-          type="search"
+          type="text"
           name="query"
-          value={queryValue}
-          onChange={handleQueryChange}
           placeholder="Search movies"
+          autoComplete="off"
+          autoFocus
         />
         <s.Button type="submit">Search</s.Button>
       </s.Form>
@@ -38,11 +57,6 @@ const MovieSearch = ({ query, onSubmit }) => {
       </Suspense>
     </s.Div>
   );
-};
-
-MovieSearch.propTypes = {
-  query: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default MovieSearch;

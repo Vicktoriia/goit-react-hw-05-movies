@@ -1,5 +1,6 @@
 import { useParams, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import * as s from './MovieDetails.styled';
 
 import { GetMovieDetails } from 'components/Fetch/FetchApi';
 import MovieNav from 'components/MovieNav/MovieNav';
@@ -29,11 +30,10 @@ const MovieDetails = () => {
   return (
     <main>
       <div>
-        <button type="button" onClick={handleBackClick}>
+        <s.Button type="button" onClick={handleBackClick}>
           Go back
-        </button>
-
-        <div>
+        </s.Button>
+        <s.Div>
           <img
             src={'https://image.tmdb.org/t/p/w500' + poster_path}
             alt={original_title}
@@ -46,11 +46,10 @@ const MovieDetails = () => {
             <p>User Score: {vote_average}</p>
             <b>Overview:</b>
             <p>{overview}</p>
-
             <b>Genres:</b>
             <p>{genres.map(({ name }) => name).join(', ')}</p>
           </div>
-        </div>
+        </s.Div>
         <div>
           <h3>Additional information</h3>
           <MovieNav from={backLink} />

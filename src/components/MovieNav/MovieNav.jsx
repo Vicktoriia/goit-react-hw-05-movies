@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as s from './MovieNav.styled';
 
 const MovieNav = ({ from }) => {
@@ -16,10 +15,6 @@ const MovieNav = ({ from }) => {
       </s.Li>
     </s.List>
   );
-};
-
-MovieNav.propTypes = {
-  from: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default MovieNav;
